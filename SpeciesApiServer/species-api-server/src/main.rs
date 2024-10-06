@@ -18,7 +18,7 @@ struct Species {
 async fn main() -> Result<(), Error> {
     dotenv().ok();
     let host = env::var("DB_HOST").expect("DB_HOST must be set");
-    let port = env::var("DB_PORT").unwrap_or_else(|_| "5432".to_string()); // Default to 5432 if not set
+    let port = env::var("DB_PORT").unwrap_or_else(|_| "5432".to_string());
     let db_name = env::var("DB_NAME").expect("DB_NAME must be set");
     let user = env::var("DB_USER").expect("DB_USER must be set");
     let password = env::var("DB_PASSWORD").expect("DB_PASSWORD must be set");
