@@ -1,23 +1,25 @@
 "use client";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-
-interface SpeciesPreview {
-  id: number;
-  name: string;
-}
+import {fetchSpecies, Species} from '../api/species'
 
 export default function Home() {
   const [query, setQuery] = useState('');
-  const [results, setResults] = useState<SpeciesPreview[]>([]);
+  const [species, setSpecies] = useState<Species[]>([]);
 
   useEffect(() => {
-    if (query.length > 2) {
-      axios.get(`/api/species?search=${query}`)
-        .then(res => setResults(res.data))
-        .catch(err => console.error(err));
-    }
-  }, [query]);
+      const loadSpecies = async () => {
+          try {
+              const data = await fetchSpecies(query);  // Fetch species based on query
+              setSpecies(data);
+          } catch (error) {
+              console.error('Failed to load species:', error);
+          }
+      };
+
+      loadSpecies();
+  }, [query]);  // Fetch whenever query changes
+
 
   
   return (
@@ -30,9 +32,9 @@ export default function Home() {
       onChange={(e) => setQuery(e.target.value)}
     />
     <ul className="w-full">
-      {results.map((species) => (
-        <li key={species.id} className="mb-2">
-          <a href={`/species/${species.id}`} className="text-green-700 hover:underline">{species.name}</a>
+      {species.map((spec) => (
+        <li key={spec.id} className="mb-2">
+          <a href={`/species/${spec.id}`} className="text-green-700 hover:underline">{spec.name}</a>
         </li>
       ))}
     </ul>

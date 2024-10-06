@@ -19,7 +19,6 @@ const ClientSpeciesInfoComponent = () => {
     axios.get(`/api/species/${id}`)
       .then(res => setSpecies(res.data))
       .catch(err => console.error(err));
-    console.error("Still no api!");
   }, [id]);
 
   if (!species) return <div>Loading...</div>;
