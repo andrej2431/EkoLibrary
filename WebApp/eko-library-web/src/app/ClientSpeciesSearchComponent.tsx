@@ -10,7 +10,8 @@ export default function Home() {
   useEffect(() => {
       const loadSpecies = async () => {
           try {
-              const data = await fetchSpecies(query);  // Fetch species based on query
+
+              const data = await fetchSpecies(query);
               setSpecies(data);
           } catch (error) {
               console.error('Failed to load species:', error);
@@ -18,7 +19,7 @@ export default function Home() {
       };
 
       loadSpecies();
-  }, [query]);  // Fetch whenever query changes
+  }, [query]);
 
 
   
